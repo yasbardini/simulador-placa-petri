@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Simulador de Placa de Petri</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <main id="app" v-cloak>
+    <header>
+      <h1>Simulador de Placa de Petri</h1>
+
+      <p>
+        Selecione células e acompanhe a evolução da população.
+      </p>
+    </header>
+
+    <section class="painel">
+      <div class="configuracao">
+        <label for="tamanho">
+          Tamanho da grade:
+        </label>
+
+        <select
+          id="tamanho"
+          v-model.number="tamanho"
+          @change="alterarTamanho"
+        >
+          <option
+            v-for="valor in 36"
+            :key="valor"
+            :value="valor + 4"
+          >
+            {{ valor + 4 }} × {{ valor + 4 }}
+          </option>
+        </select>
+
+        <small>
+          Alterar o tamanho limpa a grade.
+        </small>
+      </div>
+
+      <div class="botoes">
+        <button
+          type="button"
+          @click="iniciar"
+          :disabled="executando"
+        >
+          Iniciar / Continuar
+        </button>
+
+        <button
+          type="button"
+          @click="pausar"
+          :disabled="!executando"
+        >
+          Pausar
+        </button>
+
+        <button
+          type="button"
+          @click="avancarUmaGeracao"
+        >
+          Avançar 1 geração
+        </button>
+
+        <button
+          type="button"
+          @click="editarGeracao"
+        >
+          Editar geração
+        </button>
+
+        <button
+          type="button"
+          class="botao-reiniciar"
+          @click="reiniciar"
+        >
+          Reiniciar
+        </button>
+      </div>
+    </section>
+
+    <section class="informacoes" aria-live="polite">
+      <p>Geração: <strong>{{ geracao }}</strong></p>
+
+      <p>
+        Células vivas:
+        <strong>{{ celulasVivas }}</strong>
+      </p>
+
+      <p>{{ status }}</p>
+    </section>
+
+    <p class="instrucao">
+      {{ editando
+        ? "Clique nas células para alternar entre viva e morta."
+        : "Para alterar as células, clique em Editar geração." }}
+    </p>
+
+    <section class="area-grade">
+      <div
+        class="grade"
+        :style="estiloGrade"
+        aria-label="Grade da simulação"
+      >
+        <template
+          v-for="(linha, indiceLinha) in matriz"
+          :key="indiceLinha"
+        >
+          <button
+            v-for="(celula, indiceColuna) in linha"
+            :key="`${indiceLinha}-${indiceColuna}`"
+            type="button"
+            class="celula"
+            :class="{ viva: celula === 1 }"
+            :disabled="!editando || executando"
+            :aria-label="`Linha ${indiceLinha + 1}, coluna ${indiceColuna + 1}: ${celula === 1 ? 'viva' : 'morta'}`"
+            :aria-pressed="celula === 1"
+            @click="alternarCelula(indiceLinha, indiceColuna)"
+          ></button>
+        </template>
+      </div>
+    </section>
+
+    <section class="legenda">
+      <span>
+        <i class="amostra morta"></i>
+        Célula morta
+      </span>
+
+      <span>
+        <i class="amostra viva"></i>
+        Célula viva
+      </span>
+    </section>
+  </main>
+
+  <script src="/vendor/vue.js"></script>
+  <script src="/js/jogo.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

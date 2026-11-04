@@ -1,0 +1,203 @@
+* {
+  box-sizing: border-box;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+body {
+  margin: 0;
+  padding: 24px 16px;
+  background: #f1f5f9;
+  color: #1e293b;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 30px;
+}
+
+header p {
+  color: #475569;
+}
+
+.painel {
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #dbe3ec;
+}
+
+.configuracao {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.configuracao label {
+  font-weight: bold;
+}
+
+.configuracao small {
+  color: #64748b;
+}
+
+select {
+  padding: 8px;
+  border: 1px solid #94a3b8;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.botoes button {
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 6px;
+  background: #0369a1;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.botoes button:hover:not(:disabled) {
+  background: #075985;
+}
+
+.botoes .botao-reiniciar {
+  background: #b91c1c;
+}
+
+.botoes .botao-reiniciar:hover {
+  background: #991b1b;
+}
+
+.botoes button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.informacoes {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  margin-top: 18px;
+}
+
+.informacoes p {
+  margin: 8px 0;
+}
+
+.instrucao {
+  text-align: center;
+  color: #475569;
+}
+
+.area-grade {
+  overflow: auto;
+  padding: 10px;
+  border: 1px solid #dbe3ec;
+  background: white;
+  border-radius: 12px;
+}
+
+.grade {
+  display: grid;
+  gap: 1px;
+  width: 100%;
+  max-width: 650px;
+  min-width: 320px;
+  margin: 0 auto;
+  padding: 1px;
+  background: #94a3b8;
+}
+
+.celula {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 1;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: #e2e8f0;
+  cursor: pointer;
+}
+
+.celula.viva {
+  background: #15803d;
+}
+
+.celula:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+.celula:focus-visible {
+  outline: 3px solid #f59e0b;
+  outline-offset: -3px;
+}
+
+.legenda {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 18px;
+}
+
+.legenda span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.amostra {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #94a3b8;
+}
+
+.amostra.morta {
+  background: #e2e8f0;
+}
+
+.amostra.viva {
+  background: #15803d;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 16px 10px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .botoes button {
+    flex: 1 1 140px;
+  }
+}

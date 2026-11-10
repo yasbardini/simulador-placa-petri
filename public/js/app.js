@@ -32,6 +32,10 @@ createApp({
         return "Modo de edição";
       }
 
+      if (this.celulasVivas === 0) {
+        return "Simulação encerrada: nenhuma célula viva";
+      }
+
       return "Simulação pausada";
     },
   },
@@ -46,12 +50,30 @@ createApp({
     },
 
     evoluir() {
+      if (contarCelulasVivas(this.matriz) === 0) {
+        this.pausar();
+        return;
+      }
+
       this.matriz = calcularProximaGeracao(this.matriz);
       this.geracao++;
+
+      if (contarCelulasVivas(this.matriz) === 0) {
+        this.pausar();
+      }
     },
 
     iniciar() {
       if (this.executando) {
+        return;
+      }
+
+      if (contarCelulasVivas(this.matriz) === 0) {
+        alert(
+          "Não é possível iniciar a simulação sem células vivas. " +
+            "Clique em Editar geração e selecione pelo menos uma célula.",
+        );
+
         return;
       }
 
@@ -74,6 +96,16 @@ createApp({
 
     avancarUmaGeracao() {
       this.pausar();
+
+      if (contarCelulasVivas(this.matriz) === 0) {
+        alert(
+          "Não é possível avançar uma geração sem células vivas. " +
+            "Clique em Editar geração e selecione pelo menos uma célula.",
+        );
+
+        return;
+      }
+
       this.editando = false;
       this.evoluir();
     },
